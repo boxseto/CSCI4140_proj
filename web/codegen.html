@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+<h2>Please Type the following code to your app:</h2>
+<h3 id="codegen"></h3>
+<script>
+var a = document.querySelector("#codegen");
+setInterval(function(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      a.innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "createVerify.php", true);
+  xhttp.send();
+}, 5000);
+</script>
+</body>
+</html>
