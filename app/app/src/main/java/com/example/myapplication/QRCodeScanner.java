@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.*;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -111,6 +114,14 @@ public class QRCodeScanner extends AppCompatActivity {
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
                             txtResult.setText(qrcodes.valueAt(0).displayValue);
+                            SharedPreferences a = getSharedPreferences("MAP", 0);
+                            a.edit().putString("seat", txtResult.getText().toString()).apply();
+                            if(txtResult.getText().toString() == "1-1"){
+                                Intent intent = new Intent(getApplicationContext(), Code_verify.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "UNKNOWN QR CODE -- " + txtResult.getText().toString() , Toast.LENGTH_SHORT);
+                            }
                         }
                     });
                 }
