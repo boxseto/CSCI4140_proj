@@ -8,6 +8,7 @@
     tools:context=".ShoppingCart">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/food_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
