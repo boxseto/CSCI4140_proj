@@ -1,9 +1,24 @@
 # CSCI4140 Project
 ## Food Court Ordering System
+
+- Functions to implement
+  * App
+    + [ ] Add dummy product to history
+    + [ ] Add dummy product to menu
+    + [ ] shopping cart function
+    + [ ] create websocket to link to verify code
+    + [ ] create a dummy QR code
+    + [x] create qr code reader
+    + [ ] make GPS sacn location
+  * Web
+    + [ ] create order receieve page
+    + [ ] menu update page
+    + [x] code verify page
+
 - Interface
 1. Customer side Interface
   1. [x] Main page
-  1. [ ] Seat Map
+  1. [x] Seat Map
   1. [ ] Menu
   1. [ ] Shopping cart
   1. [ ] Check out
@@ -18,4 +33,4 @@
 
 - Used Resource online
 1. QR Code Scanner
-  1. https://github.com/eddydn/QrCodeCamera/
+  + https://github.com/eddydn/QrCodeCamera/
