@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +28,13 @@ public class MainActivity extends AppCompatActivity {
         });
         orderFood.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FoodMenu.class);
-                startActivity(intent);
+                SharedPreferences a = getSharedPreferences("MAP", 0);
+                if(a.getString("verify", "false").contentEquals("TRUE")){
+                    Intent intent = new Intent(getApplicationContext(), FoodMenu.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Acquire Seat via QR code first!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         orderHistory.setOnClickListener(new Button.OnClickListener() {

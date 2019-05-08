@@ -7,8 +7,8 @@ presentation material:https://docs.google.com/presentation/d/1wZl2ZuWG5kPUPLigKT
     + [ ] Add dummy product to history
     + [ ] Add dummy product to menu
     + [ ] shopping cart function
-    + [ ] create websocket to link to verify code
-    + [ ] create a dummy QR code
+    + [x] create websocket to link to verify code
+    + [x] create a dummy QR code
     + [x] create qr code reader
     + [ ] make GPS sacn location
   * Web
@@ -22,11 +22,9 @@ presentation material:https://docs.google.com/presentation/d/1wZl2ZuWG5kPUPLigKT
   1. [x] Seat Map
   1. [ ] Menu
   1. [ ] Shopping cart
-  1. [ ] Check out
   1. [ ] Order summary
 1. Restaurant side Interface
   1. [ ] Main page
-  1. [ ] Login page
   1. [ ] Menu update
   1. [ ] Preview
   1. [ ] Order organising page

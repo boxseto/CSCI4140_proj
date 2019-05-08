@@ -113,20 +113,19 @@ public class QRCodeScanner extends AppCompatActivity {
                             //Create vibrate
                             Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
-                            Toast.makeText(getApplicationContext(), qrcodes.valueAt(0).displayValue, Toast.LENGTH_SHORT);
                             txtResult.setText(qrcodes.valueAt(0).displayValue);
                             SharedPreferences a = getSharedPreferences("MAP", 0);
                             a.edit().putString("seat", qrcodes.valueAt(0).displayValue).apply();
-                            if (qrcodes.valueAt(0).displayValue == "1-1") {
+                            if (qrcodes.valueAt(0).displayValue.contentEquals("1-1")) {
                                 Intent intent = new Intent(getApplicationContext(), Code_verify.class);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(), "UNKNOWN QR CODE -- " + qrcodes.valueAt(0).displayValue, Toast.LENGTH_SHORT);
+                                Toast.makeText(getApplicationContext(), "UNKNOWN QR CODE -- " + qrcodes.valueAt(0).displayValue, Toast.LENGTH_SHORT).show();
                                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                                     return;
                                 }
                                 try {
-                                    cameraSource.start();
+                                    cameraSource.start(cameraPreview.getHolder());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

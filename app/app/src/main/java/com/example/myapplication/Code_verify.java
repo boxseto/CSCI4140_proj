@@ -26,7 +26,7 @@ import okhttp3.Response;
 public class Code_verify extends AppCompatActivity {
 
     private final OkHttpClient client = new OkHttpClient();
-    EditText verifyCode = (EditText) findViewById(R.id.verify_code);
+    EditText verifyCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class Code_verify extends AppCompatActivity {
         btn.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
                 if(verifyCode.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Empty Code!" , Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Empty Code!" , Toast.LENGTH_SHORT).show();
                 }else{
                     makerequest();
                 }
@@ -71,10 +71,13 @@ public class Code_verify extends AppCompatActivity {
             }
 
             if(response.body().string().contentEquals("YES")){
+                SharedPreferences a = getSharedPreferences("MAP", 0);
+                a.edit().putString("verify", "TRUE").apply();
                 Intent intent = new Intent(getApplicationContext(), seat_map.class);
                 startActivity(intent);
             }else{
-                Toast.makeText(this, "WRONG verify code!", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "WRONG verify code!", Toast.LENGTH_SHORT).show();
+
             }
         } catch (IOException e) {
             e.printStackTrace();
