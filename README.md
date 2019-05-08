@@ -1,6 +1,8 @@
 # CSCI4140 Project
 ## Food Court Ordering System
 presentation material: https://docs.google.com/presentation/d/1vJJKZw_hKl_Z2ezNBqmX2gEuikAFCrL5IGq2z95ynnY/edit?usp=sharing
+OR
+https://docs.google.com/presentation/d/1wZl2ZuWG5kPUPLigKTHdURlqha1N0bToDuDvFU0MA2I/edit?usp=sharing
 
 - Functions to implement
   * App
