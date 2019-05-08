@@ -47,6 +47,8 @@ public class Code_verify extends AppCompatActivity {
                 }else{
                     makerequest();
                 }
+                Intent intent = new Intent(getApplicationContext(), seat_map.class);
+                startActivity(intent);
             }
         });
     }
