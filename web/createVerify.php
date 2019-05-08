@@ -1,5 +1,5 @@
 <?php
-$code = mt_rand(100000, mt_getrandmax());
+$code = mt_rand(1000, 9999);
 
 $conn = new mysqli("localhost", "user", "pass", "CSCI4140");
 $sql = "UPDATE verify SET code=".$code;
