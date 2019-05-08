@@ -74,7 +74,7 @@ public class QRCodeScanner extends AppCompatActivity {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     //Request permission
                     ActivityCompat.requestPermissions(QRCodeScanner.this,
-                            new String[]{Manifest.permission.CAMERA},RequestCameraPermissionID);
+                            new String[]{Manifest.permission.CAMERA}, RequestCameraPermissionID);
                     return;
                 }
                 try {
@@ -105,22 +105,31 @@ public class QRCodeScanner extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
-                if(qrcodes.size() != 0)
-                {
+                if (qrcodes.size() != 0) {
                     txtResult.post(new Runnable() {
                         @Override
                         public void run() {
+                            cameraSource.stop();
                             //Create vibrate
-                            Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
+                            Toast.makeText(getApplicationContext(), qrcodes.valueAt(0).displayValue, Toast.LENGTH_SHORT);
                             txtResult.setText(qrcodes.valueAt(0).displayValue);
                             SharedPreferences a = getSharedPreferences("MAP", 0);
-                            a.edit().putString("seat", txtResult.getText().toString()).apply();
-                            if(txtResult.getText().toString() == "1-1"){
+                            a.edit().putString("seat", qrcodes.valueAt(0).displayValue).apply();
+                            if (qrcodes.valueAt(0).displayValue == "1-1") {
                                 Intent intent = new Intent(getApplicationContext(), Code_verify.class);
                                 startActivity(intent);
-                            }else{
-                                Toast.makeText(getApplicationContext(), "UNKNOWN QR CODE -- " + txtResult.getText().toString() , Toast.LENGTH_SHORT);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "UNKNOWN QR CODE -- " + qrcodes.valueAt(0).displayValue, Toast.LENGTH_SHORT);
+                                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                    return;
+                                }
+                                try {
+                                    cameraSource.start();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     });

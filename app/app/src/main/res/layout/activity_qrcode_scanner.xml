@@ -8,18 +8,20 @@
 
     <SurfaceView
         android:id="@+id/cameraPreview"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="480px" />
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
     <TextView
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        android:layout_below="@+id/cameraPreview"
         android:id="@+id/txtResult"
-        android:layout_marginTop="20dp"
-        android:text="temp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cameraPreview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="temp"
+        android:textSize="20sp"
+        android:visibility="invisible" />
 
 </RelativeLayout>
