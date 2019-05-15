@@ -47,6 +47,10 @@ public class FoodMenu extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         List<Pair<String, String>> myDataset = null;
+        myDataset.add(new Pair<String, String>("Hamburgers", "MacDonalds"));
+        myDataset.add(new Pair<String, String>("Fries", "MacDonalds"));
+        myDataset.add(new Pair<String, String>("Taco", "Taco Bell"));
+        myDataset.add(new Pair<String, String>("Fried Rice", "Dai Pai Dong"));
 
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(myDataset);
@@ -97,16 +101,10 @@ public class FoodMenu extends AppCompatActivity {
             holder.addBtn.setOnClickListener(new Button.OnClickListener() {
                 public void onClick(View v) {
                     SharedPreferences pref = (SharedPreferences) getSharedPreferences("CART", MODE_PRIVATE);
-                    String raw = pref.getString("cart", "{}");
-                    try{
-                        JSONArray array = new JSONArray(raw);
-                        JSONObject appendobj = new JSONObject();
-                        appendobj.put("name", holder.foodName.getText());
-//                        array.add(appendobj);
-                    }
-                    catch(JSONException e) {
-                        e.printStackTrace();
-                    }
+                    String cart = pref.getString("cart", "");
+                    String item = holder.foodName.getText().toString() + ":" + holder.restaurantName.getText().toString();
+                    cart = cart + "~" + item;
+                    pref.edit().putString("cart", cart).apply();
                 }
             });
         }
