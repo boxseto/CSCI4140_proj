@@ -23,6 +23,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+//referenced code: https://github.com/eddydn/QrCodeCamera/
 
 public class QRCodeScanner extends AppCompatActivity {
 
