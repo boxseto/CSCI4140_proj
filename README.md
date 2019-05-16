@@ -2,7 +2,7 @@
 ## Food Court Ordering System
 - Github Repository
   - https://github.com/boxseto/CSCI4140_proj
-  - commit value: a94dd1982743ba68a96b996ee361194d9848c4a6
+  - commit value: e8d06fb3771b5cf2911d8937a8cc2ab6fd9996b3
 
 - Deployment
   1. run the project's "web" folder in localhost environment, php enabled.
