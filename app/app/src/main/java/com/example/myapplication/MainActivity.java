@@ -20,6 +20,13 @@ public class MainActivity extends AppCompatActivity {
         Button orderHistory = (Button) findViewById(R.id.order_history);
         Button shoppingCart = (Button) findViewById(R.id.shopping_cart);
 
+        //information of the user
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("id", -1);
+        String name = intent.getStringExtra("username");
+        String contact = intent.getStringExtra("contact");
+        int type = intent.getIntExtra("type", -1);
+
         viewSeat.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), QRCodeScanner.class);

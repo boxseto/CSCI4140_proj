@@ -7,19 +7,32 @@
     android:orientation="vertical"
     tools:context=".ShoppingCart">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/food_menu"
+    <Spinner
+        android:id="@+id/foodcourtSpinner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
-    </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/food_menu_back"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="10"
-        android:text="Back" />
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/food_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/food_menu_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="Back" />
+    </LinearLayout>
 
 </LinearLayout>

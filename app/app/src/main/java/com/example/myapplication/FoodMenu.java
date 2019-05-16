@@ -11,8 +11,20 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,6 +37,53 @@ public class FoodMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu);
+        final Spinner foodcourtSpinner = findViewById(R.id.foodcourtSpinner);
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonResponse  = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(success){
+                        //build a drop-down menu for a list of foodcourts
+                        int rows = jsonResponse.getInt("rows");
+                        String[] foodcourtItems = new String[rows];
+                        for(int i = 0; i < rows; i++){
+                            JSONObject foodcourt = jsonResponse.getJSONObject(Integer.toString(i));
+                            view1.setText(foodcourt.getString("name"));
+                            foodcourtItems[i] = foodcourt.getString("name");
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                android.R.layout.simple_spinner_item, foodcourtItems);
+                        foodcourtSpinner.setAdapter(adapter);
+                        foodcourtSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view,
+                                                       int position, long id) {
+                                //generate restaurants88\
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // TODO Auto-generated method stub
+                            }
+                        });
+
+
+                    }else{
+                        Log.i("tagconvertstr", "["+response+"]");
+                    }
+                }catch(JSONException e ){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        final String FOODCOURT_REQUEST_URL = "http://4140proj.000webhostapp.com/foodcourt.php";
+        StringRequest foodcourtRequest = new StringRequest(Request.Method.POST, FOODCOURT_REQUEST_URL, responseListener, null);
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(foodcourtRequest);
 
         //setting back button
         Button backBtn = findViewById(R.id.food_menu_back);
