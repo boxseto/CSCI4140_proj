@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public class FoodMenu extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -46,7 +43,7 @@ public class FoodMenu extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Pair<String, String>> myDataset = null;
+        ArrayList<Pair<String, String>> myDataset = new ArrayList<Pair<String, String>>();
         myDataset.add(new Pair<String, String>("Hamburgers", "MacDonalds"));
         myDataset.add(new Pair<String, String>("Fries", "MacDonalds"));
         myDataset.add(new Pair<String, String>("Taco", "Taco Bell"));
@@ -59,7 +56,7 @@ public class FoodMenu extends AppCompatActivity {
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-        private List<Pair<String, String>> mDataset;
+        private ArrayList<Pair<String, String>> mDataset;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -78,7 +75,7 @@ public class FoodMenu extends AppCompatActivity {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(List<Pair<String, String>> myDataset) {
+        public MyAdapter(ArrayList<Pair<String, String>> myDataset) {
             mDataset = myDataset;
         }
 
@@ -87,7 +84,7 @@ public class FoodMenu extends AppCompatActivity {
         public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
             // create a new view
-            View v = (TextView) LayoutInflater.from(parent.getContext())
+            View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.food_menu_list_item, parent, false);
             MyViewHolder vh = new MyViewHolder(v);
             return vh;
@@ -103,7 +100,11 @@ public class FoodMenu extends AppCompatActivity {
                     SharedPreferences pref = (SharedPreferences) getSharedPreferences("CART", MODE_PRIVATE);
                     String cart = pref.getString("cart", "");
                     String item = holder.foodName.getText().toString() + ":" + holder.restaurantName.getText().toString();
-                    cart = cart + "~" + item;
+                    if(cart.isEmpty()){
+                        cart = item;
+                    }else{
+                        cart = cart + "~" + item;
+                    }
                     pref.edit().putString("cart", cart).apply();
                 }
             });

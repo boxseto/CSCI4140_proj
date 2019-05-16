@@ -31,6 +31,8 @@ public class seat_map extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seat_map);
+        SharedPreferences a = getSharedPreferences("MAP", 0);
+        a.edit().putString("verify", "TRUE").apply();
 
         Button back = (Button) findViewById(R.id.seat_map_back);
         seat1 = (TextView) findViewById(R.id.seat_1);

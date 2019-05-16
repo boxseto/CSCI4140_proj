@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class ShoppingCart extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -40,13 +41,19 @@ public class ShoppingCart extends AppCompatActivity {
         checkoutBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 String history = pref.getString("history", "");
-                history = history + pref.getString("cart", "");
-                if(!history.isEmpty()){
+                String currentCart = pref.getString("cart", "");
+                if(!currentCart.isEmpty()){
+                    if(history.isEmpty()){
+                        history = currentCart;
+                    }else{
+                        history = history + "~" +  currentCart;
+                    }
                     pref.edit()
                             .putString("history", history)
                             .putString("cart", "")
                             .apply();
                 }
+                mAdapter.clear();
             }
         });
 
@@ -65,7 +72,7 @@ public class ShoppingCart extends AppCompatActivity {
     }
 
     public static class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCart.ShoppingCartAdapter.CartViewHolder> {
-        private List<Pair<String, String>> mDataset;
+        private ArrayList<Pair<String, String>> mDataset = new ArrayList<Pair<String, String>>();
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -83,10 +90,12 @@ public class ShoppingCart extends AppCompatActivity {
 
         // Provide a suitable constructor (depends on the kind of dataset)
         public ShoppingCartAdapter(String myDataset) {
-            String[] items = myDataset.split("~");
-            for(String item : items){
-                String[] temp = item.split(":");
-                mDataset.add(new Pair<String, String>(temp[0], temp[1]));
+            if(!myDataset.isEmpty()){
+                String[] items = myDataset.split("~");
+                for(String item : items){
+                    String[] temp = item.split(":");
+                    mDataset.add(new Pair<String, String>(temp[0], temp[1]));
+                }
             }
         }
 
@@ -95,7 +104,7 @@ public class ShoppingCart extends AppCompatActivity {
         public ShoppingCartAdapter.CartViewHolder onCreateViewHolder(ViewGroup parent,
                                                                   int viewType) {
             // create a new view
-            View v = (TextView) LayoutInflater.from(parent.getContext())
+            View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.shopping_cart_list_item, parent, false);
             CartViewHolder vh = new CartViewHolder(v);
             return vh;
@@ -111,7 +120,21 @@ public class ShoppingCart extends AppCompatActivity {
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return mDataset.size();
+            if(mDataset == null){
+                return 0;
+            }else{
+                return mDataset.size();
+            }
+        }
+
+        public void clear() {
+            int size = mDataset.size();
+            if (size > 0) {
+                for (int i = 0; i < size; i++) {
+                    mDataset.remove(0);
+                }
+                notifyItemRangeRemoved(0, size);
+            }
         }
     }
 }
